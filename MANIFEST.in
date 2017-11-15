@@ -1,0 +1,4 @@
+include README.md
+recursive-include access_control/templates *
+recursive-include access_control/translations *
+recursive-include access_control/static *
