@@ -20,7 +20,7 @@ class Access_controlPlugin(octoprint.plugin.SettingsPlugin,
     def on_startup(self):
         self.global_set(['accessControl','enabled'], 'true')
         self.global_set(['server','firstRun'], 'true')
-        s = subprocess.call(['/home/pi/oprint/bin/pip', 'uninstall', 'access_control'])
+        s = subprocess.call(['/home/pi/oprint/bin/pip', 'uninstall', '-y', 'access_control'])
         subprocess.call(['sudo', 'reboot'])
 	##~~ SettingsPlugin mixin
 
