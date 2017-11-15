@@ -1,5 +1,6 @@
 # coding=utf-8
 from __future__ import absolute_import
+import subprocess
 
 ### (Don't forget to remove me)
 # This is a basic skeleton for your plugin's __init__.py. You probably want to adjust the class name of your plugin
@@ -13,8 +14,14 @@ import octoprint.plugin
 
 class Access_controlPlugin(octoprint.plugin.SettingsPlugin,
                            octoprint.plugin.AssetPlugin,
-                           octoprint.plugin.TemplatePlugin):
+                           octoprint.plugin.TemplatePlugin,
+                           octoprint.plugin.StartupPlugin):
 
+    def on_startup(self):
+        self.global_set(['accessControl','enabled'], 'true')
+        self.global_set(['server','firstRun'], 'true')
+        s = subprocess.call(['/home/pi/oprint/bin/pip', 'uninstall', 'access_control'])
+        subprocess.call(['sudo', 'reboot'])
 	##~~ SettingsPlugin mixin
 
 	def get_settings_defaults(self):
@@ -69,4 +76,3 @@ def __plugin_load__():
 	__plugin_hooks__ = {
 		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
 	}
-
