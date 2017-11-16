@@ -11,10 +11,18 @@ class Access_controlPlugin(octoprint.plugin.SettingsPlugin,
     def on_settings_initialized(self):
         try:
             self._logger.info("###### Starting Access Control ##########")
-            self._settings.global_set(['accessControl','enabled'], 'true')
-            self._settings.global_set(['server','firstRun'], 'true')
-            s = subprocess.call(['/home/pi/oprint/bin/pip', 'uninstall', '-y', 'access_control'])
-            subprocess.call(['sudo', 'reboot'])
+            self._logger.info( "accessControl: enabled: {}".format(
+                self._settings.global_get(['accessControl','enabled'])
+                )
+            )
+            self._settings.global_set(['accessControl','enabled'], True)
+            self._logger.info( "accessControl: enabled: {}".format(
+                self._settings.global_get(['accessControl','enabled'])
+                )
+            )
+            self._settings.global_set(['server','firstRun'], True)
+            # s = subprocess.call(['/home/pi/oprint/bin/pip', 'uninstall', '-y', 'access_control'])
+            # subprocess.call(['sudo', 'reboot'])
         except Exception as e:
             self._logger.exception('###########Error !!!Access Control ####')
 
